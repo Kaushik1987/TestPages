@@ -1,0 +1,51 @@
+http://time.QualitechSolutions.com
+User: sappleby 
+Pwrd: ronda 
+Company: Ronda
+
+1. This page only works in IE. It needs to be converted to work in IE, Chrome, FF, Edge, etc.
+2. A web page and supporting files that duplicates the functionality of this page
+
+Note : 
+Save, Save and Exit and Submit Timesheet buttons – no changes required. 
+All other functionality is via the User Interface.
+
+Task assumption : 
+	1. Tree control is not available except IE so support other browsers as well. 
+
+kaushik findings : (To Identify what functionality this page does)
+1. Expand Tree button
+2. Collapse Tree button
+3. Switch to Hierarchy Timesheet option is not available other than IE  
+
+Varify function:
+ShowNotes();
+NodeLink();
+NumKeysOnly();
+--cmdExp_onclick();
+--cmdCollapse_onclick();
+SearchTheTree();
+sizeFixedHeadings();
+ShowActivityHier();
+ShowHideTime();
+showNext_Hier();
+2,5,7 
+
+
+TextRange object :
+Represents text in an HTML element.
+(https://msdn.microsoft.com/en-us/library/ms535872(v=vs.85).aspx)
+
+createTextRange method :
+Creates a TextRange object for the element.
+(https://msdn.microsoft.com/en-us/library/ms536401(v=vs.85).aspx)
+
+setEndPoint method :
+Sets the endpoint of one range based on the endpoint of another range.
+(https://msdn.microsoft.com/en-us/library/ms536745(v=vs.85).aspx)
+
+
+1. TreeView UI is not proepr in Edge & Lower IE version 
+2. Some time moving from one to other node lead low data on UI (textboxes on UI )
+3. Identify "Show Entered Time" option 
+4. Identify what does "Show project from last Timesheet" 

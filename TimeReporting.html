@@ -1,0 +1,444 @@
+﻿
+<html>
+<head>
+    <meta http-equiv="x-ua-compatible" content="IE=EmulateIE7">
+    <link rel="stylesheet" type="text/css" href="TimeConsultant.css">
+    <link rel="stylesheet" type="text/css" href="jquery-ui.css">
+    <meta name="keywords" content="Qualitech Solutions, TimeConsultant, Time Management, Timesheet, Time Tracking">
+    <script language="Javascript" src="../library/jquery.js"></script>
+    <script language="Javascript" src="../library/jquery-ui.js"></script>
+    <script type="text/javascript">
+        function setbrowserdate() {
+            var mydate = new Date();
+            var month = mydate.getMonth() + 1;
+            var day = mydate.getDate();
+            if (day < 10) {
+                day = '0' + day
+            } if (month < 10) {
+                month = '0' + month
+            } var dispdate = mydate.getFullYear() + '' + month  + '' + day;
+            var iCnt;
+            var localdate = document.all('sLocalDate');
+            if (localdate)
+            {
+                if (localdate.length)
+                    for (iCnt = 0; iCnt < localdate.length; iCnt++)
+                        localdate[iCnt].value = dispdate;
+                else
+                    localdate.value = dispdate;
+            }
+        }
+    </script>
+    <title>TimeConsultant - Time Reporting</title>
+    <script id=clientEventHandlersJS language=javascript>
+<!--
+var m_hTimer;
+var IsActivity;
+var OffTime;
+var timeoutWindow;
+ function addMins(myDate,mins) {
+     return new Date(myDate.getTime() + mins*60*1000);
+ }
+function timeOut() {
+var dteCurrent        = addMins(new Date(), 5);
+var sText         = new String();
+var sHold         = new String();
+  if (IsActivity=='Y')
+   {IsActivity='N'
+    m_hTimer = window.setInterval("timeOut()", 30300000);
+    return; }
+  sText = '';
+  sHold=dteCurrent.getHours();
+  if(sHold<2) {
+      sHold='0'+sHold;
+  }
+  sAmPM='AM';
+  if(sHold>12) {
+      sAmPM='PM';
+      sHold=sHold-12;
+  }
+  if(sHold==12) {
+      sAmPM='PM';
+  }
+  sText = sText+sHold+':';
+  sHold=dteCurrent.getMinutes();
+  if(sHold<10) {
+      sHold='0'+sHold;
+  }
+  OffTime = sText+sHold+sAmPM;
+  setTimeout('LogOff()',(1000*60*5));
+  window.clearInterval(m_hTimer);
+ windowOptions = "toolbar=no,location=no,directories=no,resize=no,status=no,menubar=no,resizable=no,copyhistory=yes,width=560,height=118,screenX=300,screenY=300,top=300,left=300'";
+  timeoutWindow=window.open('../Off.htm','Logoff_20170622072255',windowOptions);
+  if (timeoutWindow == null) return;
+  timeoutWindow.focus();
+}
+function LogOff()
+{
+if (!timeoutWindow.closed)
+    timeoutWindow.close();
+location.href = 'login.asp?O=Y&A=Y&TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A'
+}
+function reset_timeout()
+{
+  window.clearInterval(m_hTimer);
+  m_hTimer = window.setInterval("timeOut()", 30300000);
+}
+//-->
+    </script>
+    <script id=loadUpTimer language=javascript>
+<!--
+
+// Start Timer
+m_hTimer = window.setInterval("timeOut()", 30300000);
+
+//-->
+    </script>
+</head>
+
+<body topmargin="20" leftmargin="20" onload="alert('You have requested to use the Hierarchy Timesheet. This feature is only available when using Microsoft Internet Explorer.\n\nThe feature has been disabled for this session.');setbrowserdate();
+" alink="#000000" vlink="#000000" link="#000000">
+    <script language="Javascript" src="../library/qsiPopup.js"></script>
+    <script language="Javascript" src="../Library/qsiMenu.js"></script>
+    <script language=javascript>
+<!--
+var menuCaptions = new Array(2);
+var menuLinks = new Array(2);
+menuCaptions[1] = new Array('Approval by Employee');
+menuLinks[1] = new Array('ApproveByEmployee.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A');
+menuCaptions[2] = new Array('Print My Timesheet', 'My Payroll Report - Hours For A Pay Period', 'My Reported Hours By Year', 'My Reported Hours By Date', 'My Unapproved Timesheets', 'Non Work Days', 'My Skills', 'My Schedule');
+menuLinks[2] = new Array('Reports.asp?RptName=Print+My+Timesheet&Rpt=2&opt=1&TSP1=Y&TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A', 'Reports.asp?RptName=My+Payroll+Report+%2D+Hours+For+A+Pay+Period&Rpt=3&opt=1&PR1=Y&TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A', 'Reports.asp?RptName=My+Reported+Hours+By+Year&Rpt=4&opt=1&YR1=Y&TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A', 'Reports.asp?RptName=My+Reported+Hours+By+Date&Rpt=5&opt=1&DATE=Y&TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A', 'Reports.asp?RptName=My+Unapproved+Timesheets&Rpt=6&opt=1&DATE=Y&TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A', 'Reports.asp?RptName=Non+Work+Days&Rpt=10&opt=1&List=Y&TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A', 'Reports.asp?RptName=My+Skills&Rpt=12&opt=1&List=Y&TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A', 'Reports.asp?RptName=My+Schedule&Rpt=7&opt=1&SCH1=Y&Date=Y&TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A');
+createMenus(false);
+-->
+    </script>
+    <center>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td width="1" valign="top"><a href="mainmenu.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A"><img border="0" src="../images/logo.gif" alt="Main Menu"></a></td>
+                <td valign="top">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                            <td align="left" background="../images/topLeft.gif" height="27px" valign="top" style="background-repeat:repeat-x;padding-left:11px; padding-top:3px; color:white;" width="80%" nowrap>
+                                <a href="MainMenu.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A" class="headerLink4"> Main Menu</a>
+                                &nbsp;|&nbsp;<a href="ApproveTSSelect.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A" class="headerLink4"> Time Approval</a>
+                                &nbsp;|&nbsp;<a href="ExpenseApproval.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A" class="headerLink4"> Expense Approval</a>
+                                &nbsp;|&nbsp;<a href="ReportList.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A" class="headerLink4"> Reports</a>
+                                &nbsp;|&nbsp;<span onmouseover="showMenu(1, event);" id="dropMenuLink1" class="headerLinkMenu4"> Other...</span>
+                                &nbsp;|&nbsp;<span onmouseover="showMenu(2, event);" id="dropMenuLink2" class="headerLinkMenu4"> My Reports...</span>
+                                &nbsp;|&nbsp;<a href="login.asp?O=Y&TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A" class="headerLink4"> Logout</a>
+                            </td>
+                            <td><img src="../images/topMid.gif" border="0"></td>
+                            <td background="../images/topRight.gif" valign="top" align="right" width="20%" style="background-repeat:repeat-x;padding-top:3px; padding-left:17px; padding-right:7px;" nowrap><strong style="color:black; font-family:arial; font-size:14px;">TimeConsultant - 5.5</strong></td>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" style="padding-left:10px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td>
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td nowrap style="font-family:arial; font-weight:bold;">Time Reporting</td>
+                                        <td nowrap>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;<a class="tabLink4" href="ExpenseReporting.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A">Expenses</b></a>
+                                        </td>
+                                        <td nowrap>
+                                            <img src="../images/dot.gif" border="0" style="margin-left:6px; margin-right:6px;"><a class="tabLink4" href="ScheduleList.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A">Scheduling</b></a>
+                                        </td>
+                                        <td nowrap>
+                                            <img src="../images/dot.gif" border="0" style="margin-left:6px; margin-right:6px;"><a class="tabLink4" href="Skills.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A">Skills</b></a>
+                                        </td>
+                                        <td nowrap>
+                                            <img src="../images/dot.gif" border="0" style="margin-left:6px; margin-right:6px;"><a class="tabLink4" href="ProjectPreference.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A">Project Preferences</b></a>
+                                        </td>
+                                        <td nowrap>
+                                            <img src="../images/dot.gif" border="0" style="margin-left:6px; margin-right:6px;"><a class="tabLink4" href="BenefitDays.asp?rpt=2&TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A">Non Work Days</b></a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td align="right" valign="top" style="padding-right:7px; color:black; font-family:arial; font-weight:bold;" width="99%">Ronda's Wonderful Company</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        </td>
+        </tr>
+        </table>
+        </table>
+        <br>
+        <center>
+
+            <table border="1" frame=box rules=rows cellpadding="5" cellspacing="0">
+                <tr class="vListHdr4">
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"><strong>Start Date</strong></td>
+                    <td><strong>Status</strong></td>
+                    <td>&nbsp;</td>
+                    <td align="center"><strong>Report</strong></td>
+                </tr>
+
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"><img src="../Images/QuickSubmit.gif" border="0" style="cursor:pointer;" title="Quick Submit the timesheet for period 07/08/2017" onclick="QuickSubmit(20170708)"></td>
+                    <td>&nbsp;</td>
+                    <form name="fTSP" method="POST" action="TimeSheet.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&SP=20170708&EP=20170714&ST=To%20Complete">
+                        <td align="right"><input type="submit" name="CMD0" value=" Edit " style="width:40px;"></td>
+                        <input type="hidden" name="sLocalDate" id="sLocalDate">
+                    </form>
+                    <td align="center">07/08/2017</td>
+                    <td>To Complete</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"><img src="../Images/QuickSubmit.gif" border="0" style="cursor:pointer;" title="Quick Submit the timesheet for period 07/01/2017" onclick="QuickSubmit(20170701)"></td>
+                    <td>&nbsp;</td>
+                    <form name="fTSP" method="POST" action="TimeSheet.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&SP=20170701&EP=20170707&ST=To%20Complete">
+                        <td align="right"><input type="submit" name="CMD0" value=" Edit " style="width:40px;"></td>
+                        <input type="hidden" name="sLocalDate" id="sLocalDate">
+                    </form>
+                    <td align="center">07/01/2017</td>
+                    <td>To Complete</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"><img src="../Images/QuickSubmit.gif" border="0" style="cursor:pointer;" title="Quick Submit the timesheet for period 06/24/2017" onclick="QuickSubmit(20170624)"></td>
+                    <td>&nbsp;</td>
+                    <form name="fTSP" method="POST" action="TimeSheet.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&SP=20170624&EP=20170630&ST=To%20Complete">
+                        <td align="right"><input type="submit" name="CMD0" value=" Edit " style="width:40px;"></td>
+                        <input type="hidden" name="sLocalDate" id="sLocalDate">
+                    </form>
+                    <td align="center">06/24/2017</td>
+                    <td>To Complete</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"><img src="../Images/QuickSubmit.gif" border="0" style="cursor:pointer;" title="Quick Submit the timesheet for period 06/17/2017" onclick="QuickSubmit(20170617)"></td>
+                    <td>&nbsp;</td>
+                    <form name="fTSP" method="POST" action="TimeSheet.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&SP=20170617&EP=20170623&ST=To%20Complete">
+                        <td align="right"><input type="submit" name="CMD0" value=" Edit " style="width:40px;"></td>
+                        <input type="hidden" name="sLocalDate" id="sLocalDate">
+                    </form>
+                    <td align="center">06/17/2017</td>
+                    <td>To Complete</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"><img src="../Images/QuickSubmit.gif" border="0" style="cursor:pointer;" title="Quick Submit the timesheet for period 06/10/2017" onclick="QuickSubmit(20170610)"></td>
+                    <td>&nbsp;</td>
+                    <form name="fTSP" method="POST" action="TimeSheet.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&SP=20170610&EP=20170616&ST=To%20Complete">
+                        <td align="right"><input type="submit" name="CMD0" value=" Edit " style="width:40px;"></td>
+                        <input type="hidden" name="sLocalDate" id="sLocalDate">
+                    </form>
+                    <td align="center">06/10/2017</td>
+                    <td>To Complete</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"><img src="../Images/QuickSubmit.gif" border="0" style="cursor:pointer;" title="Quick Submit the timesheet for period 06/03/2017" onclick="QuickSubmit(20170603)"></td>
+                    <td>&nbsp;</td>
+                    <form name="fTSP" method="POST" action="TimeSheet.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&SP=20170603&EP=20170609&ST=To%20Complete">
+                        <td align="right"><input type="submit" name="CMD0" value=" Edit " style="width:40px;"></td>
+                        <input type="hidden" name="sLocalDate" id="sLocalDate">
+                    </form>
+                    <td align="center">06/03/2017</td>
+                    <td>To Complete</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"><img src="../Images/QuickSubmit.gif" border="0" style="cursor:pointer;" title="Quick Submit the timesheet for period 05/27/2017" onclick="QuickSubmit(20170527)"></td>
+                    <td>&nbsp;</td>
+                    <form name="fTSP" method="POST" action="TimeSheet.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&SP=20170527&EP=20170602&ST=To%20Complete">
+                        <td align="right"><input type="submit" name="CMD0" value=" Edit " style="width:40px;"></td>
+                        <input type="hidden" name="sLocalDate" id="sLocalDate">
+                    </form>
+                    <td align="center">05/27/2017</td>
+                    <td>To Complete</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"><img src="../Images/QuickSubmit.gif" border="0" style="cursor:pointer;" title="Quick Submit the timesheet for period 05/20/2017" onclick="QuickSubmit(20170520)"></td>
+                    <td>&nbsp;</td>
+                    <form name="fTSP" method="POST" action="TimeSheet.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&SP=20170520&EP=20170526&ST=To%20Complete">
+                        <td align="right"><input type="submit" name="CMD0" value=" Edit " style="width:40px;"></td>
+                        <input type="hidden" name="sLocalDate" id="sLocalDate">
+                    </form>
+                    <td align="center">05/20/2017</td>
+                    <td>To Complete</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <form name="fTS" method="POST" action="TimeSheetPrintSelect.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&SP=20170513&CP=0&ST=In%20Progress">
+                        <td align="right"><input type="submit" name="CMD0" value="Print" style="width:40px;"></td>
+                        <input type="hidden" name="sLocalDate" id="sLocalDate">
+                    </form>
+                    <form name="fTSP" method="POST" action="TimeSheet.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&SP=20170513&ST=In%20Progress&EP=20170519">
+                        <td align="right"><input type="submit" name="CMD0" value=" Edit " style="width:40px;"></td>
+                        <input type="hidden" name="sLocalDate" id="sLocalDate">
+                    </form>
+                    <td align="center">05/13/2017</td>
+                    <td>In Progress</td>
+                    <td>&nbsp;</td>
+                    <td><a href="reports.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&txtFrom=05/13/2017&txtTo=05/19/2017&rpt=2&SP=20170513&CP=7&chkActNotes=-1&hPF=Y&FTS=4204571665206724024E175C6B226F374214500465">Run</a></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"><img src="../Images/QuickSubmit.gif" border="0" style="cursor:pointer;" title="Quick Submit the timesheet for period 05/06/2017" onclick="QuickSubmit(20170506)"></td>
+                    <td>&nbsp;</td>
+                    <form name="fTSP" method="POST" action="TimeSheet.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&SP=20170506&EP=20170512&ST=To%20Complete">
+                        <td align="right"><input type="submit" name="CMD0" value=" Edit " style="width:40px;"></td>
+                        <input type="hidden" name="sLocalDate" id="sLocalDate">
+                    </form>
+                    <td align="center">05/06/2017</td>
+                    <td>To Complete</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"><img src="../Images/QuickSubmit.gif" border="0" style="cursor:pointer;" title="Quick Submit the timesheet for period 04/29/2017" onclick="QuickSubmit(20170429)"></td>
+                    <td>&nbsp;</td>
+                    <form name="fTSP" method="POST" action="TimeSheet.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&SP=20170429&EP=20170505&ST=To%20Complete">
+                        <td align="right"><input type="submit" name="CMD0" value=" Edit " style="width:40px;"></td>
+                        <input type="hidden" name="sLocalDate" id="sLocalDate">
+                    </form>
+                    <td align="center">04/29/2017</td>
+                    <td>To Complete</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"><img src="../Images/QuickSubmit.gif" border="0" style="cursor:pointer;" title="Quick Submit the timesheet for period 04/22/2017" onclick="QuickSubmit(20170422)"></td>
+                    <td>&nbsp;</td>
+                    <form name="fTSP" method="POST" action="TimeSheet.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&SP=20170422&EP=20170428&ST=To%20Complete">
+                        <td align="right"><input type="submit" name="CMD0" value=" Edit " style="width:40px;"></td>
+                        <input type="hidden" name="sLocalDate" id="sLocalDate">
+                    </form>
+                    <td align="center">04/22/2017</td>
+                    <td>To Complete</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"><img src="../Images/QuickSubmit.gif" border="0" style="cursor:pointer;" title="Quick Submit the timesheet for period 04/15/2017" onclick="QuickSubmit(20170415)"></td>
+                    <td>&nbsp;</td>
+                    <form name="fTSP" method="POST" action="TimeSheet.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&SP=20170415&EP=20170421&ST=To%20Complete">
+                        <td align="right"><input type="submit" name="CMD0" value=" Edit " style="width:40px;"></td>
+                        <input type="hidden" name="sLocalDate" id="sLocalDate">
+                    </form>
+                    <td align="center">04/15/2017</td>
+                    <td>To Complete</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"><img src="../Images/QuickSubmit.gif" border="0" style="cursor:pointer;" title="Quick Submit the timesheet for period 04/08/2017" onclick="QuickSubmit(20170408)"></td>
+                    <td>&nbsp;</td>
+                    <form name="fTSP" method="POST" action="TimeSheet.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&SP=20170408&EP=20170414&ST=To%20Complete">
+                        <td align="right"><input type="submit" name="CMD0" value=" Edit " style="width:40px;"></td>
+                        <input type="hidden" name="sLocalDate" id="sLocalDate">
+                    </form>
+                    <td align="center">04/08/2017</td>
+                    <td>To Complete</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="center"><img src="../Images/QuickSubmit.gif" border="0" style="cursor:pointer;" title="Quick Submit the timesheet for period 04/01/2017" onclick="QuickSubmit(20170401)"></td>
+                    <td>&nbsp;</td>
+                    <form name="fTSP" method="POST" action="TimeSheet.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A&SP=20170401&EP=20170407&ST=To%20Complete">
+                        <td align="right"><input type="submit" name="CMD0" value=" Edit " style="width:40px;"></td>
+                        <input type="hidden" name="sLocalDate" id="sLocalDate">
+                    </form>
+                    <td align="center">04/01/2017</td>
+                    <td>To Complete</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+        </center>
+        <form name="frmQS" method="POST" action="TimeSheetSave.asp?TCID=357A2A6A6A2F6D2B5C133A05085E17384C1E41657523733F411D5204673A600A4F2C5A3A">
+            <input type="hidden" name="SP" value="">
+            <input type="hidden" name="QSubPost" value="Y">
+            <input type="hidden" name="hSP" value="">
+            <input type="hidden" name="hCP" value="">
+            <input type="hidden" name="hDP" value="7">
+            <input type="hidden" name="hCM" value="A">
+            <input type="hidden" name="hTR" value="1">
+            <input type="hidden" name="RType1" value="r">
+            <input type="hidden" name="hJC1" value="661">
+            <input type="hidden" name="hJT1" value="2">
+            <input type="hidden" name="Tr1t3" value="7.5">
+            <input type="hidden" name="Tr1t4" value="7.5">
+            <input type="hidden" name="Tr1t5" value="7.5">
+            <input type="hidden" name="Tr1t6" value="7.5">
+            <input type="hidden" name="Tr1t7" value="7.5">
+        </form>
+        <script type="text/javascript">
+<!--
+function openWindowHelp(url, name) {
+popupWin = window.open(url, name, 'resizable=0,Scrollbars=0,toolbar=0,menubar=0,width=820,height=450')
+}
+function LockedTS() {
+   var str = "";
+   alert(JScriptEscape(str));
+}
+ function QuickSubmit(thisDate)
+ {
+   if (confirm("Are you sure you want to Quick Submit this timesheet?"))
+       {
+           document.frmQS.SP.value = thisDate;
+           document.frmQS.hSP.value = thisDate;
+           document.frmQS.hCP.value = '7';
+           document.frmQS.submit();
+           return true;
+       }
+ }
+//-->
+        </script>
+
+
+        <center><p class="Copyright">TimeConsultant © 1999-2017, <a target="_new" href="http://www.QualitechSolutions.com">Qualitech Solutions Inc.</a></p></center>
+</body>
+</html>
