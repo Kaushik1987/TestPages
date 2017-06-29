@@ -26,27 +26,27 @@
         var dotIndex = str.indexOf('.');
         // Custom formating for decimal places 
         if (kcaretPos - 1 == dotIndex) { // user entering data next to '.' (decimal values)
-            var decimalVal = 0;            
+            var decimalVal = 0;
             switch (keyCode) {
                 case 50:
                     decimalVal = '25';
                     $(thisString).val(kinputvalue + decimalVal);
                     noGood = true;
-                    break;                                       
+                    break;
                 case 53:
                     decimalVal = '50';
                     $(thisString).val(kinputvalue + decimalVal);
-                    noGood = true;                    
+                    noGood = true;
                     break;
                 case 55:
                     decimalVal = '75';
                     $(thisString).val(kinputvalue + decimalVal);
-                    noGood = true;                    
+                    noGood = true;
                     break;
                 default:
                     // This mean no valid keyCode 
                     noGood = true;
-                    return false;                    
+                    return false;
             }
         }
         else {
@@ -79,7 +79,7 @@
 
     }
     if (noGood) {
-        
+
         if (keyCode == '\u0009' || keyCode == 9 || keyCode == '9') {
             return true;
         }
@@ -111,3 +111,23 @@ function watermark(inputId, text) {
         inputBox.value = text;
 }
 
+function getCaretPosition(ctrl) {
+    // IE < 9 Support
+    if (document.selection) {
+        ctrl.focus();
+        var range = document.selection.createRange();
+        var rangelen = range.text.length;
+        range.moveStart('character', -ctrl.value.length);
+        var start = range.text.length - rangelen;
+        return { 'start': start, 'end': start + rangelen };
+    }
+    // IE >=9 and other browsers
+    else if (ctrl.selectionStart || ctrl.selectionStart == '0') {
+        return { 'start': ctrl.selectionStart, 'end': ctrl.selectionEnd };
+    } else { return { 'start': 0, 'end': 0 }; }
+};
+
+function validateInput(s) {
+    var rgx = /^\d+(?:\.(0|00|25|50|75))?$/;
+    return s.match(rgx);
+}

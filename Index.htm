@@ -19,6 +19,7 @@
     <script language=Javascript src="TimeConsultant_files/jquery.js"></script>
     <script language=Javascript src="TimeConsultant_files/jquery-ui.js"></script>
     <script language=Javascript src="TimeConsultant_files/qsiTime.js"></script>
+    <script language=javascript src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.js"></script>
     <script language=JavaScript>
         ProjDefs = new Array();
     </script>
@@ -100,6 +101,7 @@
     </script>
 
     <meta name=GENERATOR content="MSHTML 11.00.9600.18666">
+    
 </head>
 
 <body onload="window_onload(); ShowHideTime(''); sizeFixedHeadings();altRows(-999);startAllButtons();" alink=#000000 leftmargin=20
@@ -315,7 +317,10 @@ mItem1242 = new TreeObjectItem(\'Mystery Website\', \'NodeLink(1242, false)\', 1
                                 </table>
                                 <script language=JavaScript></script>
                                 <div id=tempDiv style="DISPLAY: none"></div>
-                                <div id=timeSection style="OVERFLOW-Y: scroll">
+                                <!-- //#: Chnage removed overflow-y scroll 
+                                    <div id=timeSection style="OVERFLOW-Y: scroll">
+                                 -->
+                                <div id=timeSection>
                                     <table id=timeTable cellspacing=0 cellpadding=0 width="100%" border=0>
                                         <tbody>
                                             <tr id=Proj0 style="DISPLAY: none">
@@ -389,8 +394,8 @@ mItem1242 = new TreeObjectItem(\'Mystery Website\', \'NodeLink(1242, false)\', 1
                                                             <tr>
                                                                 <td align=center>
                                                                     <!--//#: onchange not working properly on IE after entering decimal value -->
-                                                                    <!--//#: We can go for blure -->
-                                                                    <input onblur="CalcIt(1,1,7,'r')" onkeypress="return NumKeysOnly(event);" id=Tr1t1 size=4 align=right name=Tr1t1>
+                                                                    <!--//#: We can go for onblur -->
+                                                                    <input onblur="CalcIt(1,1,7,'r')" onkeypress="NumKeysOnly(event);" id=Tr1t1 size=4 align=right name=Tr1t1>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -2129,7 +2134,7 @@ mItem1242 = new TreeObjectItem(\'Mystery Website\', \'NodeLink(1242, false)\', 1
             //                       // thisText.createTextRange &&  //#: actual (Commented for change)
             //                        thisText.caretPos) {
             //                            var caretPos = thisText.caretPos;
-            //                            debugger;
+            //                            
             //                            var kcaretPos = doGetCaretPosition(thisText);                                      
             //                            var kinputvalue = $(thisText).val();
             //                            var kleftpart = kinputvalue.substr(0, kcaretPos);
@@ -2138,7 +2143,7 @@ mItem1242 = new TreeObjectItem(\'Mystery Website\', \'NodeLink(1242, false)\', 1
             //                            console.log('kinputvalue :'+ kinputvalue);
             //                            console.log('kleftpart :'+ kleftpart);
             //                            console.log('krighttpart :'+ krighttpart);
-            //                            debugger;                                                                                
+            //                            
             //                            var l1 = thisText.createTextRange();
             //                            var r1 = thisText.createTextRange();
             //                            l1.setEndPoint("EndToStart", caretPos); // Left Stub                                       
@@ -2263,7 +2268,7 @@ mItem1242 = new TreeObjectItem(\'Mystery Website\', \'NodeLink(1242, false)\', 1
             //                             // console.log(l1);
             //                             // console.log(r1);
 
-            //                             debugger;
+            //                             
             //                             var kcaretPos = doGetCaretPosition(thisText);
             //                             var kinputvalue = $(thisText).val();
             //                             var kleftpart = kinputvalue.substr(0, kcaretPos);
@@ -2586,8 +2591,8 @@ mItem1242 = new TreeObjectItem(\'Mystery Website\', \'NodeLink(1242, false)\', 1
                 }
             }
             function updateTimestampAndID(dateID, userElID, userID) {
-                console.log("updateTimestampAndID");
-                debugger;
+                
+                
                 var myel = document.getElementById(dateID);
                 if (myel && myel != null && myel != 'undefined') {
 
@@ -2603,20 +2608,27 @@ mItem1242 = new TreeObjectItem(\'Mystery Website\', \'NodeLink(1242, false)\', 1
 
             }
             function sizeFixedHeadings() {
+               
+                /* //#: actual  
                 var headerRow = document.all.headerSection.childNodes[0].childNodes[0];
                 var footerRow = document.all.footerSection.childNodes[0].childNodes[0];
                 var timeRow = document.all.sizeTime;
+                */
+                
+                var headerRow = $('#headerSection').children().children().get(0); //#: change
+                var footerRow = $('#footerSection').children().children().get(0); //#: change
+                var timeRow = $('#sizeTime').get(0); //#: change
+
                 // alert(timeRow.clientWidth + ' <<>> ' + sizeTime.clientWidth);
-                try { //#: Chnage position chnaged for try catch block
+                try { //#: Chnage position changed for try catch block
                     if (headerRow) {
                         var i = 0;
-                        for (i = 0; i < headerRow.childNodes.length; i++) {
-
-                            if (headerRow && headerRow.hasChildNodes() && headerRow.children(i)) {
-                                headerRow.children(i).width = sizeTime.children[i].clientWidth;
-                                footerRow.children(i).width = sizeTime.children[i].clientWidth;
-                                headerRow.children(i).style.width = sizeTime.children[i].clientWidth;
-                                footerRow.children(i).style.width = sizeTime.children[i].clientWidth;
+                        for (i = 0; i < headerRow.childNodes.length; i++) {                                                        
+                            if (headerRow && headerRow.hasChildNodes() && headerRow.children[i]) {                                
+                                headerRow.children[i].width = sizeTime.children[i].clientWidth;
+                                footerRow.children[i].width = sizeTime.children[i].clientWidth;
+                                headerRow.children[i].style.width = sizeTime.children[i].clientWidth;
+                                footerRow.children[i].style.width = sizeTime.children[i].clientWidth;
                             } //end if
 
                         }//end for
@@ -2693,7 +2705,7 @@ mItem1242 = new TreeObjectItem(\'Mystery Website\', \'NodeLink(1242, false)\', 1
                 }//end if
             }//eof
             function CalcActivityRow(Row, ActivityID) {
-                debugger;
+                
                 var thisType = ''; var isIE = (navigator.appName.indexOf("Microsoft") != -1);
                 if (isIE) {
                     thisType = document.getElementById('RType' + Row).value;
@@ -2966,7 +2978,8 @@ mItem1242 = new TreeObjectItem(\'Mystery Website\', \'NodeLink(1242, false)\', 1
                     } catch (e) { }
                 }
                 eval('document.all.Notes' + id + '.children[1].style.display = "none"');
-                eval('document.all.Notes' + id + '.children[1].style.display = "inline"');
+               // eval('document.all.Notes' + id + '.children[1].style.display = "inline"');   //#: actual
+                eval('document.all.Notes' + id + '.children[1].style.display = "table-cell"'); //#: chnage 
                 if (thisNo > eval('document.all.hidMaxActivity' + id + '.value')) { eval('document.all.hidMaxActivity' + id + '.value = thisNo'); }
             }
 
@@ -3490,21 +3503,7 @@ mItem1242 = new TreeObjectItem(\'Mystery Website\', \'NodeLink(1242, false)\', 1
                     return textRange;
                 }
             };
-            function getCaretPosition(ctrl) {                
-                // IE < 9 Support
-                if (document.selection) {
-                    ctrl.focus();
-                    var range = document.selection.createRange();
-                    var rangelen = range.text.length;
-                    range.moveStart('character', -ctrl.value.length);
-                    var start = range.text.length - rangelen;
-                    return { 'start': start, 'end': start + rangelen };
-                }
-                // IE >=9 and other browsers
-                else if (ctrl.selectionStart || ctrl.selectionStart == '0') {
-                    return { 'start': ctrl.selectionStart, 'end': ctrl.selectionEnd };
-                } else { return { 'start': 0, 'end': 0 }; }
-            };
+            
             function doGetCaretPosition(oField) {
 
                 // Initialize
@@ -3527,9 +3526,9 @@ mItem1242 = new TreeObjectItem(\'Mystery Website\', \'NodeLink(1242, false)\', 1
 
                 // Return results
                 return iCaretPos;
-            }            
+            };
+            
     </script>
     <script language=Javascript src="TimeConsultant_files/clarion.js"></script>
 </body>
-
 </html>
