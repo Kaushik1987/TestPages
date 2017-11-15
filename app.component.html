@@ -1,0 +1,53 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container">
+  <h1>Compare validation test</h1>
+  <form [formGroup]="form" name="myform">
+    <div class="form-group">
+      <label for="username">username</label>
+      <input type="text" id="username" class="form-control" formControlName="username">
+      <!-- <small [hidden]="form.username.valid || (username.pristine && !f.submitted)" class="text-danger">
+          Username is required (minimum 5 characters).
+        </small> -->
+      <pre class="margin-20">{{ form.get("username").errors | json }}</pre>
+    </div>
+    <div class="form-group">
+      <label for="email">email</label>
+      <input type="email" id="email" class="form-control" formControlName="email">
+      <!-- <small [hidden]="email.valid || (email.pristine && !f.submitted)" class="text-danger">
+          Email is required and format should be <i>john@doe.com</i>.
+        </small> -->
+      <pre class="margin-20">{{ form.get("email").errors | json }}</pre>
+    </div>
+    <div class="form-group">
+      <label for="emailconfirm">confirm email</label>
+      <input type="emailconfirm" id="emailconfirm" class="form-control" formControlName="emailconfirm">
+      <!-- <small [hidden]="emailconfirm.valid || (emailconfirm.pristine && !f.submitted)" class="text-danger">
+            Email is required and format should be <i>john@doe.com</i>.
+          </small> -->
+      <pre class="margin-20">{{ form.get("emailconfirm").errors | json }}</pre>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" class="form-control" formControlName="password">
+      <!-- <small [hidden]="password.valid || (password.pristine && !f.submitted)" class="text-danger">
+                Password is required.
+              </small> -->
+      <pre class="margin-20">{{ form.get("password").errors | json }}</pre>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Conform Password</label>
+      <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
+      <!-- <small [hidden]="confirmPassword.valid || (confirmPassword.pristine && !f.submitted)" class="text-danger">
+                Password is required.
+              </small> -->
+      <pre class="margin-20">{{ form.get("confirmPassword").errors | json }}</pre>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
+  </form>
+  <div class="alert alert-danger" *ngIf="form.controls.confirmPassword.errors?.MutchPassword">Password not match</div>
+  <!-- <pre class="margin-20">{{ form.value | json }}</pre> -->
+  <pre class="margin-20">{{ form.errors | json }}</pre>
+</div>
